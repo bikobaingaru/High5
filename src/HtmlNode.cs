@@ -42,12 +42,14 @@ namespace High5
         internal void RemoveChildNodeAt(int index) => _childNodes.RemoveAt(index);
     }
 
-    public sealed class HtmlDocument : HtmlNode
+    public abstract class HtmlContainerNode : HtmlNode {}
+
+    public sealed class HtmlDocument : HtmlContainerNode
     {
         public string Mode { get; internal set; }
     }
 
-    public sealed class HtmlDocumentFragment : HtmlNode {}
+    public sealed class HtmlDocumentFragment : HtmlContainerNode {}
 
     public sealed class HtmlDocumentType : HtmlNode
     {
@@ -119,7 +121,7 @@ namespace High5
         }
     }
 
-    public class HtmlElement : HtmlNode
+    public class HtmlElement : HtmlContainerNode
     {
         ReadOnlyCollection<HtmlAttribute> _attrs = new ReadOnlyCollection<HtmlAttribute>();
 

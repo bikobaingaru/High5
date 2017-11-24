@@ -27,7 +27,7 @@ namespace High5
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using IDefaultTreeBuilder = IDocumentTreeBuilder<HtmlNode,
+    using IDefaultTreeBuilder = IDocumentTreeBuilder<HtmlNode, HtmlContainerNode,
                                                      HtmlDocument, HtmlDocumentFragment,
                                                      HtmlElement, HtmlAttribute, HtmlTemplateElement,
                                                      HtmlComment>;
@@ -55,12 +55,12 @@ namespace High5
 
         public HtmlComment CreateCommentNode(string data) => new HtmlComment(data);
 
-        public void AppendChild(HtmlNode parentNode, HtmlNode newNode)
+        public void AppendChild(HtmlContainerNode parentNode, HtmlNode newNode)
         {
             parentNode.AddChildNode(newNode);
         }
 
-        public void InsertBefore(HtmlNode parentNode, HtmlNode newNode, HtmlNode referenceNode)
+        public void InsertBefore(HtmlContainerNode parentNode, HtmlNode newNode, HtmlNode referenceNode)
         {
             var i = parentNode.ChildNodes.IndexOf(referenceNode);
             parentNode.InsertChildNode(i, newNode);
@@ -97,7 +97,7 @@ namespace High5
         public string GetDocumentMode(HtmlDocument document) =>
             document.Mode;
 
-        public void DetachNode(HtmlNode parentNode, HtmlNode node)
+        public void DetachNode(HtmlContainerNode parentNode, HtmlNode node)
         {
             if (parentNode == null)
                 return;
@@ -107,7 +107,7 @@ namespace High5
 
         static HtmlText CreateTextNode(string value) => new HtmlText(value);
 
-        public HtmlNode InsertText(HtmlNode parentNode, string text)
+        public HtmlNode InsertText(HtmlContainerNode parentNode, string text)
         {
             if (parentNode.ChildNodes.Count > 0)
             {
@@ -123,7 +123,7 @@ namespace High5
             return textNode;
         }
 
-        public HtmlNode InsertTextBefore(HtmlNode parentNode, string text, HtmlNode referenceNode)
+        public HtmlNode InsertTextBefore(HtmlContainerNode parentNode, string text, HtmlNode referenceNode)
         {
             var idx = parentNode.ChildNodes.IndexOf(referenceNode) - 1;
             var prevNode = 0 <= idx && idx < parentNode.ChildNodes.Count() ? parentNode.ChildNodes[idx] : null;
@@ -157,7 +157,7 @@ namespace High5
 
         // Tree traversing
 
-        public HtmlNode GetFirstChild(HtmlNode node) =>
+        public HtmlNode GetFirstChild(HtmlContainerNode node) =>
             node.ChildNodes.Any() ? node.ChildNodes[0] : null;
 
         public int GetAttributeCount(HtmlElement element) =>
