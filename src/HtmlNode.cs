@@ -29,7 +29,9 @@ namespace High5
     using System.Linq;
     using Microsoft.Extensions.Internal;
 
-    public abstract class HtmlNode
+    public abstract class HtmlNode {}
+
+    public abstract class HtmlContainerNode : HtmlNode
     {
         ReadOnlyCollection<HtmlNode> _childNodes = new ReadOnlyCollection<HtmlNode>();
 
@@ -41,8 +43,6 @@ namespace High5
         internal void InsertChildNode(int index, HtmlNode node) => _childNodes.Insert(index, node);
         internal void RemoveChildNodeAt(int index) => _childNodes.RemoveAt(index);
     }
-
-    public abstract class HtmlContainerNode : HtmlNode {}
 
     public sealed class HtmlDocument : HtmlContainerNode
     {

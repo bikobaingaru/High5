@@ -114,7 +114,7 @@ namespace High5
             new HtmlComment(data);
 
         static T AddingChildren<T>(T node, IEnumerable<HtmlNode> children)
-            where T : HtmlNode
+            where T : HtmlContainerNode
         {
             foreach (var child in children)
                 node.AddChildNode(child);
